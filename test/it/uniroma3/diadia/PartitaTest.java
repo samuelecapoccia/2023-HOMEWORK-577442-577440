@@ -37,7 +37,7 @@ class PartitaTest {
 		assertTrue(partita2.isFinita());
 	}
 
-
+	
 	//TEST vinta;
 
 	@Test
