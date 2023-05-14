@@ -1,5 +1,6 @@
 package it.uniroma3.diadia.giocatore;
 
+
 public class Giocatore {
 
 	static final private int CFU_INIZIALI = 20;
@@ -20,11 +21,10 @@ public class Giocatore {
 	}
 
 	public Borsa getBorsa() {
-		return borsa;
+		return this.borsa;
 	}
 
 	public void setBorsa(Borsa borsa) {
 		this.borsa = borsa;
 	}	
-
 }

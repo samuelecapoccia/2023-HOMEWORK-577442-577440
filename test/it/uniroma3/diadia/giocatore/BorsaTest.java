@@ -80,5 +80,5 @@ class BorsaTest {
 	void testRemoveAttrezzoBorsaConDueOggetti() {
 		assertEquals(attrezzo2, borsa2.removeAttrezzo("Cacciavite"));
 	}
-
+	
 }

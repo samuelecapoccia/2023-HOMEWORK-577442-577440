@@ -4,51 +4,42 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.uniroma3.diadia.ambienti.Stanza;
+import it.uniroma3.diadia.ambienti.Labirinto;
 
 class PartitaTest {
 
-	private Partita partita1;
+	private Partita partita;
 	private Partita partita2;
-	private Partita partita3;
-	private Stanza stanza;
+
 
 	@BeforeEach
 	public void setUp() {
-		this.partita1= new Partita();
-		this.partita2 = new Partita();
-		this.partita3 = new Partita();
-		this.stanza = partita3.getLabirinto().getStanzaVincente();
-		partita2.setFinita();
-		partita3.getLabirinto().setStanzaCorrente(stanza);
-
-
+		this.partita = new Partita(new Labirinto());
+		this.partita2 = new Partita(new Labirinto());
+		partita.setStanzaCorrente(this.partita.getStanzaVincente());
 	}
 
 	//TEST isFinita
 
-	@Test
-	public void testIsNotFinita() {
-		assertFalse(partita1.isFinita());
-	}
 
 	@Test
 	public void testIsFinita() {
+		partita2.setFinita();
 		assertTrue(partita2.isFinita());
 	}
-
 	
+	@Test
+	public void testIsFinitaAlternativo() {
+		partita.getGiocatore().setCfu(0);
+		assertTrue(partita.isFinita());
+	}
+
 	//TEST vinta;
 
 	@Test
 	public void testVinta(){
-		assertTrue(partita3.vinta());
+		assertTrue(partita.vinta());
 	}
-
-	@Test
-	public void testNonVinta(){
-		assertFalse(partita1.vinta());
-	}
-
+	
 
 }

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
@@ -23,11 +24,11 @@ class ComandoPrendiTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		Stanza stanza1 = new Stanza("Aula");
-		partita = new Partita();
+		partita = new Partita(new Labirinto());
 		attrezzo1 = new Attrezzo("Martello", 6);
 		attrezzo2 = new Attrezzo("Incudine", 7);
 		prendi = new ComandoPrendi();
-		partita.getLabirinto().setStanzaCorrente(stanza1);
+		partita.setStanzaCorrente(stanza1);
 		stanza1.addAttrezzo(attrezzo1);
 	}
 
@@ -35,14 +36,14 @@ class ComandoPrendiTest {
 	void testPrende() {
 		prendi.setParametro("Martello");
 		prendi.esegui(partita,io);
-		assertFalse(partita.getLabirinto().getStanzaCorrente().hasAttrezzo("Martello"));
+		assertFalse(partita.getStanzaCorrente().hasAttrezzo("Martello"));
 	}
 	
 	@Test
 	void testNonPrende() {
 		prendi.setParametro("Ariete");
 		prendi.esegui(partita,io);
-		assertTrue(partita.getLabirinto().getStanzaCorrente().hasAttrezzo("Martello"));
+		assertTrue(partita.getStanzaCorrente().hasAttrezzo("Martello"));
 	}
 	
 	@Test
@@ -50,7 +51,7 @@ class ComandoPrendiTest {
 		partita.getGiocatore().getBorsa().addAttrezzo(attrezzo2);
 		prendi.setParametro("Martello");
 		prendi.esegui(partita,io);
-		assertTrue(partita.getLabirinto().getStanzaCorrente().hasAttrezzo("Martello"));
+		assertTrue(partita.getStanzaCorrente().hasAttrezzo("Martello"));
 	}
 
 }

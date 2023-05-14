@@ -24,13 +24,13 @@ class StanzaMagicaTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		partita = new Partita();
+		partita = new Partita(new Labirinto());
 		comando1 = new ComandoPosa();
 		comando2 = new ComandoPosa();
 		stanza1 = new StanzaMagica("Aula",1);
 		attrezzo1 = new Attrezzo("spada", 4);
 		attrezzo2 = new Attrezzo("pala", 3);
-		partita.getLabirinto().setStanzaCorrente(stanza1);
+		partita.setStanzaCorrente(stanza1);
 		partita.getGiocatore().getBorsa().addAttrezzo(attrezzo1);
 		partita.getGiocatore().getBorsa().addAttrezzo(attrezzo2);
 	}
@@ -41,7 +41,7 @@ class StanzaMagicaTest {
 		comando1.esegui(partita, io);
 		comando2.setParametro("pala");
 		comando2.esegui(partita,io);
-		assertTrue(partita.getLabirinto().getStanzaCorrente().hasAttrezzo("alap"));
+		assertTrue(partita.getStanzaCorrente().hasAttrezzo("alap"));
 	}
 	
 	@Test
@@ -50,21 +50,21 @@ class StanzaMagicaTest {
 		comando1.esegui(partita,io);
 		comando2.setParametro("pala");
 		comando2.esegui(partita,io);
-		assertEquals(partita.getLabirinto().getStanzaCorrente().getAttrezzo("alap").getPeso(), 6);
+		assertEquals(partita.getStanzaCorrente().getAttrezzo("alap").getPeso(), 6);
 	}
 	
 	@Test
 	void testStanzaNonArrivaAllaSogliaMagica() {
 		comando1.setParametro("spada");
 		comando1.esegui(partita,io);
-		assertTrue(partita.getLabirinto().getStanzaCorrente().hasAttrezzo("spada"));
+		assertTrue(partita.getStanzaCorrente().hasAttrezzo("spada"));
 	}
 	
 	@Test
 	void testStanzaNonRaddoppiaPeso() {
 		comando1.setParametro("spada");
 		comando1.esegui(partita,io);
-		assertEquals(partita.getLabirinto().getStanzaCorrente().getAttrezzo("spada").getPeso(), 4);
+		assertEquals(partita.getStanzaCorrente().getAttrezzo("spada").getPeso(), 4);
 	}
 
 }

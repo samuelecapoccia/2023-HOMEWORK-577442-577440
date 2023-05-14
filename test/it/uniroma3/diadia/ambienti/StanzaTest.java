@@ -107,5 +107,10 @@ class StanzaTest {
 	void testRemoveAttrezzoStanzaConDueAttrezzi() {
 		assertTrue(stanza1.removeAttrezzo(attrezzo2));
 	}
+	
+	@Test 
+	void testHasAttrezzo() {
+		assertTrue(this.stanza1.hasAttrezzo("Zappa"));
+	}
 
 }

@@ -14,16 +14,16 @@ public class ComandoPrendi implements Comando{
 			io.mostraMessaggio("Quale attrezzo vuoi prendere?");
 		else {
 
-			if(!partita.getLabirinto().getStanzaCorrente().hasAttrezzo(nomeAttrezzo)) {
+			if(!partita.getStanzaCorrente().hasAttrezzo(nomeAttrezzo)) {
 				io.mostraMessaggio("In questa stanza non c'è questo attrezzo!");
 			}
 			else {
-				Attrezzo att = partita.getLabirinto().getStanzaCorrente().getAttrezzo(nomeAttrezzo);
+				Attrezzo att = partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
 				
 				if(partita.getGiocatore().getBorsa().getPeso() + att.getPeso() > partita.getGiocatore().getBorsa().getPesoMax())
 					io.mostraMessaggio("Capienza nella borsa terminata, l'attrezzo pesa troppo!");
 				else {
-				partita.getLabirinto().getStanzaCorrente().removeAttrezzo(att);
+				partita.getStanzaCorrente().removeAttrezzo(att);
 				partita.getGiocatore().getBorsa().addAttrezzo(att);
 				io.mostraMessaggio("L'attrezzo è stato posto nella borsa!");
 				}

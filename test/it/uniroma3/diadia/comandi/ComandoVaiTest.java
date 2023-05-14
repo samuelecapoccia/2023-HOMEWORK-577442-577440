@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 
@@ -24,29 +25,29 @@ class ComandoVaiTest{
 		stanza1 = new Stanza("Sala");
 		stanza2 = new Stanza("Dio");
 		vai = new ComandoVai();
-		partita = new Partita();
-		partita.getLabirinto().setStanzaCorrente(stanza1);
+		partita = new Partita(new Labirinto());
+		partita.setStanzaCorrente(stanza1);
 		stanza1.impostaStanzaAdiacente("sud", stanza2);
 	}
 	
 	@Test
 	void testVaiNull() {
 		vai.esegui(partita, io);
-		assertEquals(stanza1, partita.getLabirinto().getStanzaCorrente());
+		assertEquals(stanza1, partita.getStanzaCorrente());
 	}
 
 	@Test
 	void testDirezioneCorretta() {
 		vai.setParametro("sud");
 		vai.esegui(partita,io);
-		assertEquals(stanza2, partita.getLabirinto().getStanzaCorrente());
+		assertEquals(stanza2, partita.getStanzaCorrente());
 	}
 	
 	@Test 
 	void testDirezioneErrata() {
 		vai.setParametro("nord");
 		vai.esegui(partita,io);
-		assertNotEquals(stanza2, partita.getLabirinto().getStanzaCorrente());
+		assertNotEquals(stanza2, partita.getStanzaCorrente());
 	}
 
 

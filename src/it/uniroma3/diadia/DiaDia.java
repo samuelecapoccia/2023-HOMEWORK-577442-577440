@@ -1,5 +1,7 @@
 package it.uniroma3.diadia;
 
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
 
@@ -18,7 +20,7 @@ import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
 
 public class DiaDia{
 
-	static final private String MESSAGGIO_BENVENUTO = ""+
+	static final protected String MESSAGGIO_BENVENUTO = ""+
 			"Ti trovi nell'Universita', ma oggi e' diversa dal solito...\n" +
 			"Meglio andare al piu' presto in biblioteca a studiare. Ma dov'e'?\n"+
 			"I locali sono popolati da strani personaggi, " +
@@ -32,9 +34,9 @@ public class DiaDia{
 	private Partita partita;
 	private IO io;
 
-	public DiaDia(IO console) {
-		this.partita = new Partita();
-		this.io = console;
+	public DiaDia(IO io, Labirinto labirinto) {
+		this.partita = new Partita(labirinto);
+		this.io = io;
 	}
 
 	public void gioca() {
@@ -55,24 +57,29 @@ public class DiaDia{
 	private boolean processaIstruzione(String istruzione) {
 		Comando comandoDaEseguire;
 		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica();
-		
+
 		comandoDaEseguire = factory.costruisciComando(istruzione);
-				
+
 		comandoDaEseguire.esegui(this.partita,this.io);
-		
+
 		if (this.partita.vinta())
 			io.mostraMessaggio("Hai vinto!");
-			
+
 		if (!this.partita.giocatoreIsVivo())
 			io.mostraMessaggio("Hai esaurito i CFU...");
-			
+
 		return this.partita.isFinita();
 	}
 
 
 	public static void main(String[] argc) {
-		IO console = new IOConsole();
-		DiaDia gioco = new DiaDia(console);
+		IO io = new IOConsole();
+		Labirinto labirinto = new LabirintoBuilder()
+		.addStanzaIniziale("LabCampusOne")
+		.addStanzaVincente("Biblioteca")
+		.addAdiacenza("LabCampusOne","Biblioteca","ovest")
+		.getLabirinto();
+		DiaDia gioco = new DiaDia(io, labirinto);
 		gioco.gioca();
 	}
 }

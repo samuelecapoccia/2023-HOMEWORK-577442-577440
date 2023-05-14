@@ -20,7 +20,7 @@ public class ComandoPosa implements Comando{
 			else {
 				Attrezzo att = partita.getGiocatore().getBorsa().getAttrezzo(nomeAttrezzo);
 				partita.getGiocatore().getBorsa().removeAttrezzo(nomeAttrezzo);
-				partita.getLabirinto().getStanzaCorrente().addAttrezzo(att);
+				partita.getStanzaCorrente().addAttrezzo(att);
 				io.mostraMessaggio("L'oggetto è stato rimesso nella stanza e rimosso dalla borsa!");
 			}
 		}
