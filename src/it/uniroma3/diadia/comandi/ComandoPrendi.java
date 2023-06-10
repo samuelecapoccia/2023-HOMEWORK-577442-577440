@@ -1,31 +1,31 @@
 package it.uniroma3.diadia.comandi;
 
-import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-public class ComandoPrendi implements Comando{
+public class ComandoPrendi extends AbstractComando{
 	
 	private String nomeAttrezzo;
+	private final static String NOME_COMANDO = "Comando Prendi";
 
 	@Override
-	public void esegui(Partita partita, IO io) {
+	public void esegui(Partita partita) {
 		if(nomeAttrezzo==null)
-			io.mostraMessaggio("Quale attrezzo vuoi prendere?");
+			this.getIo().mostraMessaggio("Quale attrezzo vuoi prendere?");
 		else {
 
 			if(!partita.getStanzaCorrente().hasAttrezzo(nomeAttrezzo)) {
-				io.mostraMessaggio("In questa stanza non c'è questo attrezzo!");
+				this.getIo().mostraMessaggio("In questa stanza non c'è questo attrezzo!");
 			}
 			else {
 				Attrezzo att = partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
 				
 				if(partita.getGiocatore().getBorsa().getPeso() + att.getPeso() > partita.getGiocatore().getBorsa().getPesoMax())
-					io.mostraMessaggio("Capienza nella borsa terminata, l'attrezzo pesa troppo!");
+					this.getIo().mostraMessaggio("Capienza nella borsa terminata, l'attrezzo pesa troppo!");
 				else {
 				partita.getStanzaCorrente().removeAttrezzo(att);
 				partita.getGiocatore().getBorsa().addAttrezzo(att);
-				io.mostraMessaggio("L'attrezzo è stato posto nella borsa!");
+				this.getIo().mostraMessaggio("L'attrezzo è stato posto nella borsa!");
 				}
 			}
 		}
@@ -34,17 +34,11 @@ public class ComandoPrendi implements Comando{
 
 	@Override
 	public void setParametro(String parametro) {
-		this.nomeAttrezzo = parametro;
-		
+		this.nomeAttrezzo = parametro;	
 	}
-
+	
 	@Override
 	public String getNome() {
-		return null;
-	}
-
-	@Override
-	public String getParametro() {
-		return null;
+		return NOME_COMANDO;
 	}
 }

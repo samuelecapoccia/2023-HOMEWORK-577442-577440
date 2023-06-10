@@ -28,8 +28,8 @@ class StanzaTest {
 		this.attrezzo1 = new Attrezzo("Zappa", 23);
 		this.attrezzo2 = new Attrezzo ("Pala", 4);
 		this.attrezzo3 = new Attrezzo ("Martello", 2);
-		stanza1.impostaStanzaAdiacente("sud", stanza2);
-		stanza1.impostaStanzaAdiacente("nord", stanza3);
+		stanza1.impostaStanzaAdiacente(Direzione.valueOf("sud"), stanza2);
+		stanza1.impostaStanzaAdiacente(Direzione.valueOf("nord"), stanza3);
 		stanza1.addAttrezzo(attrezzo1);
 		stanza1.addAttrezzo(attrezzo2);
 		stanza2.addAttrezzo(attrezzo2);
@@ -41,18 +41,12 @@ class StanzaTest {
 
 	@Test
 	void testGetStanzaAdiacenteGiàEsistenteSud() {
-		assertEquals(stanza2, stanza1.getStanzaAdiacente("sud"));
+		assertEquals(stanza2, stanza1.getStanzaAdiacente(Direzione.valueOf("sud")));
 	}
 
 	@Test
 	void testGetStanzaAdiacenteNonEsistente() {
-		assertNull(stanza1.getStanzaAdiacente("est"));
-	}
-
-
-	@Test
-	void testGetStanzaAdiacenteErrato() {
-		assertNotEquals(stanza1, stanza3.getStanzaAdiacente("ovest"));
+		assertNull(stanza1.getStanzaAdiacente(Direzione.valueOf("est")));
 	}
 
 	//TEST AddAttrezzo

@@ -16,21 +16,21 @@ class StanzaBloccataTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		stanzaBloccata = new StanzaBloccata("Bloccata", "sud", "chiave");
+		stanzaBloccata = new StanzaBloccata("Bloccata", "chiave", Direzione.valueOf("sud"));
 		stanza = new Stanza("Sbloccata");
 		attrezzoSbloccante = new Attrezzo("chiave", 1);
-		stanzaBloccata.impostaStanzaAdiacente("sud", stanza);
+		stanzaBloccata.impostaStanzaAdiacente(Direzione.valueOf("sud"), stanza);
 	}
 
 	@Test
 	void testGetStanzaAdiacenteSenzaAttrezzoNellaStanza() {
-		assertEquals(stanzaBloccata, stanzaBloccata.getStanzaAdiacente("sud"));
+		assertEquals(stanzaBloccata, stanzaBloccata.getStanzaAdiacente(Direzione.valueOf("sud")));
 	}
 	
 	@Test 
 	void testGetStanzaAdiacenteConAttrezzoNellaStanza() {
 		stanzaBloccata.addAttrezzo(attrezzoSbloccante);
-		assertEquals(stanza, stanzaBloccata.getStanzaAdiacente("sud"));
+		assertEquals(stanza, stanzaBloccata.getStanzaAdiacente(Direzione.valueOf("sud")));
 	}
 	
 	@Test

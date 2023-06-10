@@ -53,10 +53,10 @@ class OrdinamentoMinimaleTest {
 	@Test
 	void testGetContenutoRaggruppatoPerPesoDuePesiDiversi() {
 		Map<Integer, Set<Attrezzo>> map = this.borsa.getContenutoRaggruppatoPerPeso();
-		Iterator<Attrezzo> it = map.get(0).iterator();
+		Iterator<Attrezzo> it = map.get(3).iterator();
 		assertTrue(it.hasNext());
 		assertEquals(it.next(),this.attrezzo1);
-		it = map.get(2).iterator();
+		it = map.get(5).iterator();
 		assertEquals(it.next(), this.attrezzo2);
 	}
 	
@@ -66,7 +66,7 @@ class OrdinamentoMinimaleTest {
 		this.attrezzo1 = new Attrezzo("A", 5);
 		this.borsa.addAttrezzo(attrezzo1);
 		Map<Integer, Set<Attrezzo>> map = this.borsa.getContenutoRaggruppatoPerPeso();
-		Iterator<Attrezzo> it = map.get(1).iterator();
+		Iterator<Attrezzo> it = map.get(5).iterator();
 		assertTrue(it.next().equals(attrezzo1) && it.next().equals(attrezzo2));
 	}
 	

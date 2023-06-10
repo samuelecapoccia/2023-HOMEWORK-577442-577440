@@ -2,6 +2,8 @@ package it.uniroma3.diadia.ambienti;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Scanner;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,13 +22,18 @@ class StanzaMagicaTest {
 	private Attrezzo attrezzo2;
 	private Comando comando1;
 	private Comando comando2;
-	private IO io = new IOConsole();
+	private Labirinto labirinto;
+	private IO io;
 
 	@BeforeEach
 	void setUp() throws Exception {
-		partita = new Partita(new Labirinto());
+		io = new IOConsole(new Scanner(System.in));
+		labirinto = Labirinto.newBuilder("labirintoMagico.txt").getLabirinto();
+		partita = new Partita(labirinto);
 		comando1 = new ComandoPosa();
 		comando2 = new ComandoPosa();
+		comando1.setIo(io);
+		comando2.setIo(io);
 		stanza1 = new StanzaMagica("Aula",1);
 		attrezzo1 = new Attrezzo("spada", 4);
 		attrezzo2 = new Attrezzo("pala", 3);
@@ -38,32 +45,32 @@ class StanzaMagicaTest {
 	@Test
 	void testStanzaMagicaInverteNome() {
 		comando1.setParametro("spada");
-		comando1.esegui(partita, io);
+		comando1.esegui(partita);
 		comando2.setParametro("pala");
-		comando2.esegui(partita,io);
+		comando2.esegui(partita);
 		assertTrue(partita.getStanzaCorrente().hasAttrezzo("alap"));
 	}
 	
 	@Test
 	void testStanzaMagicaRaddoppiaPeso() {
 		comando1.setParametro("spada");
-		comando1.esegui(partita,io);
+		comando1.esegui(partita);
 		comando2.setParametro("pala");
-		comando2.esegui(partita,io);
+		comando2.esegui(partita);
 		assertEquals(partita.getStanzaCorrente().getAttrezzo("alap").getPeso(), 6);
 	}
 	
 	@Test
 	void testStanzaNonArrivaAllaSogliaMagica() {
 		comando1.setParametro("spada");
-		comando1.esegui(partita,io);
+		comando1.esegui(partita);
 		assertTrue(partita.getStanzaCorrente().hasAttrezzo("spada"));
 	}
 	
 	@Test
 	void testStanzaNonRaddoppiaPeso() {
 		comando1.setParametro("spada");
-		comando1.esegui(partita,io);
+		comando1.esegui(partita);
 		assertEquals(partita.getStanzaCorrente().getAttrezzo("spada").getPeso(), 4);
 	}
 

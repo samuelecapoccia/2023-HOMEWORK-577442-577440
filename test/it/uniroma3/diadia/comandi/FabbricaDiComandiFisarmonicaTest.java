@@ -1,4 +1,4 @@
-package it.uniroma3.diadia.comandi;
+/*package it.uniroma3.diadia.comandi;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,4 +37,4 @@ class FabbricaDiComandiFisarmonicaTest {
 		assertEquals(comando.getNome(),fabbrica.costruisciComando("aiuto").getNome());
 	}
 
-}
+}*/

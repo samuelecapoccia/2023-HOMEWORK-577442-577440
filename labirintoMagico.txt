@@ -1,0 +1,11 @@
+Stanze:Biblioteca
+Magica:Scale
+Buia:
+Bloccata:  
+Inizio:Scale
+Vincente:Biblioteca
+Mago:
+Cane:
+Strega:
+Attrezzi:
+Uscite:Scale nord Biblioteca, Biblioteca sud Scale

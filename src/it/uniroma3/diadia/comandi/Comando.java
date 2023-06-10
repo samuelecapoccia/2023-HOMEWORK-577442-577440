@@ -8,7 +8,7 @@ public interface Comando {
 	 /**
 	    * esecuzione del comando
 	    */
-	    public void esegui(Partita partita, IO io);
+	    public void esegui(Partita partita);
 	  /**
 	    * set parametro del comando
 	    */
@@ -17,4 +17,8 @@ public interface Comando {
 	    public String getNome();
 	    
 	    public String getParametro();
+	    
+		public void setIo(IO io);
+	    
+		
 }

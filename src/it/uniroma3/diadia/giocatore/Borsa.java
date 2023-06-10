@@ -15,7 +15,6 @@ public class Borsa {
 
 	public final static int DEFAULT_PESO_MAX_BORSA = 10; 
 	private Map<String, Attrezzo> attrezzi;
-	//private int numeroAttrezzi;
 	private int pesoMax;
 
 	public Borsa() {
@@ -25,7 +24,6 @@ public class Borsa {
 	public Borsa(int pesoMax) {
 		this.pesoMax = pesoMax;
 		this.attrezzi = new HashMap<>(); 
-		//this.numeroAttrezzi = 0;
 	}
 
 
@@ -33,10 +31,6 @@ public class Borsa {
 
 		if (this.getPeso() + attrezzo.getPeso() > this.getPesoMax())
 			return false;
-
-		//if (this.numeroAttrezzi==10)
-		//return false;
-
 		this.attrezzi.put(attrezzo.getNome(), attrezzo);
 		return true;
 	}
@@ -48,14 +42,6 @@ public class Borsa {
 
 
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
-		/*Attrezzo a = null;
-		for (int i= 0; i<this.numeroAttrezzi; i++)
-			if(this.attrezzi[i]==null)
-				return a;
-			else if (this.attrezzi[i].getNome().equals(nomeAttrezzo))
-				a = attrezzi[i];
-		return a; */
-
 		return this.attrezzi.get(nomeAttrezzo);
 	}
 
@@ -82,19 +68,6 @@ public class Borsa {
 
 
 	public Attrezzo removeAttrezzo(String nomeAttrezzo) {
-		/*Attrezzo a = null;
-		int i=0;
-		while(i<this.numeroAttrezzi && a==null) {
-			if(this.attrezzi[i].getNome().equals(nomeAttrezzo)) {
-				a = this.attrezzi[i];
-				this.attrezzi[i]=null; 
-				this.attrezzi[i] = this.attrezzi[i+1];
-				this.numeroAttrezzi--;
-			}
-			i++;
-		}
-
-		return a; */
 		if(this.hasAttrezzo(nomeAttrezzo))
 			return this.attrezzi.remove(nomeAttrezzo);
 		else
@@ -131,7 +104,7 @@ public class Borsa {
 	}
 
 
-	public Map<Integer,Set<Attrezzo>> getContenutoRaggruppatoPerPeso(){
+	/*public Map<Integer,Set<Attrezzo>> getContenutoRaggruppatoPerPeso(){
 		Map<Integer, Set<Attrezzo>> map = new HashMap<>();
 		boolean trovato = false;
 		for(Attrezzo a: this.attrezzi.values()) {
@@ -149,6 +122,36 @@ public class Borsa {
 		}
 		return map;
 
+	}*/
+	
+	/*public Map<Integer, Set<Attrezzo>> getContenutoRaggruppatoPerPeso() {
+	    Map<Integer, Set<Attrezzo>> map = new HashMap<>();
+
+	    for (Attrezzo a : this.attrezzi.values()) {
+	        int peso = a.getPeso();
+	        Set<Attrezzo> attrezziConLoStessoPeso = map.getOrDefault(peso, new TreeSet<>());
+	        attrezziConLoStessoPeso.add(a);
+	        map.put(peso, attrezziConLoStessoPeso);
+	    }
+
+	    return map;
+	}*/
+	
+	public Map<Integer, Set<Attrezzo>> getContenutoRaggruppatoPerPeso() {
+	    Map<Integer, Set<Attrezzo>> map = new HashMap<>();
+	    for (Attrezzo a : this.attrezzi.values()) {
+	        int peso = a.getPeso();
+	        if (map.containsKey(peso)) {
+	            map.get(peso).add(a);
+	        } else {
+	            Set<Attrezzo> set = new TreeSet<>();
+	            set.add(a);
+	            map.put(peso, set);
+	        }
+	    }
+	    return map;
 	}
+
+
 
 }

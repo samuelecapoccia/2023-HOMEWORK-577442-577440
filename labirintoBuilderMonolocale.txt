@@ -1,0 +1,11 @@
+Stanze:start
+Magica:
+Buia:
+Bloccata:  
+Inizio:start
+Vincente:start
+Mago:
+Cane:
+Strega:
+Attrezzi:
+Uscite:

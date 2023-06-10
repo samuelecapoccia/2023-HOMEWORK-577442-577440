@@ -6,14 +6,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.uniroma3.diadia.ambienti.Labirinto.LabirintoBuilder;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class BuilderTest {
-	private LabirintoBuilder labirintoBuilder;
+	private Labirinto.LabirintoBuilder labirintoBuilder;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		this.labirintoBuilder = new LabirintoBuilder();
+		this.labirintoBuilder = new LabirintoBuilder("labirinto.txt");
 	}
 
 
@@ -42,28 +43,28 @@ public class BuilderTest {
 	public void testAddAdiacenza() {
 		this.labirintoBuilder.addStanzaIniziale("start");
 		this.labirintoBuilder.addStanza("aEst");
-		this.labirintoBuilder.addAdiacenza("start", "aEst", "est");
-		assertEquals(new Stanza("aEst"),this.labirintoBuilder.getMappaStanze().get("start").getStanzaAdiacente("est"));
+		this.labirintoBuilder.addAdiacenza("start", "aEst", Direzione.valueOf("est"));
+		assertEquals(new Stanza("aEst"),this.labirintoBuilder.getMappaStanze().get("start").getStanzaAdiacente(Direzione.valueOf("est")));
 	}
 	
 	@Test
 	public void testStanzaBloccataConSbloccante() {
-		this.labirintoBuilder.addStanzaBloccata("bloccata", "chiave", "nord");
+		this.labirintoBuilder.addStanzaBloccata("bloccata", "chiave", Direzione.valueOf("nord"));
 		this.labirintoBuilder.addAttrezzo("chiave", 1);
 		Stanza bloccata = this.labirintoBuilder.getMappaStanze().get("bloccata");
 		Stanza aNord = new Stanza("aNord");
 		this.labirintoBuilder.addStanza("aNord");
-		this.labirintoBuilder.addAdiacenza("bloccata", "aNord", "nord");
-		assertEquals(aNord,bloccata.getStanzaAdiacente("nord"));
+		this.labirintoBuilder.addAdiacenza("bloccata", "aNord", Direzione.valueOf("nord"));
+		assertEquals(aNord,bloccata.getStanzaAdiacente(Direzione.valueOf("nord")));
 	}
-
+	
 	@Test
 	public void testStanzaBloccataSenzaSbloccante() {
-		this.labirintoBuilder.addStanzaBloccata("bloccata", "chiave", "nord");
-		Stanza bloccata = this.labirintoBuilder.getMappaStanze().get("bloccata");
-		this.labirintoBuilder.addAdiacenza("bloccata", "aNord", "nord");
-		assertEquals(bloccata,bloccata.getStanzaAdiacente("nord"));
+	    this.labirintoBuilder.addStanzaBloccata("bloccata", "chiave", Direzione.valueOf("nord"));
+	    this.labirintoBuilder.addAdiacenza("bloccata", "bloccata", Direzione.valueOf("nord"));
+	    assertEquals("bloccata", this.labirintoBuilder.getMappaStanze().get("bloccata").getStanzaAdiacente(Direzione.valueOf("nord")).getNome());
 	}
+
 	
 	@Test
 	public void testStanzaBuioConLuce() {
